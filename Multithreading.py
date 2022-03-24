@@ -3,7 +3,15 @@ from concurrent.futures import ProcessPoolExecutor
 
 def scrap(q):
     from selenium import webdriver
-    driver= webdriver.Chrome("C:\\Users\\Sumit\\OneDrive\\Desktop\\chromedriver.exe")
+    from selenium.webdriver.chrome.options import Options
+    chrome_options = Options()
+
+    #chrome_options.add_argument("--disable-extensions")
+
+    #chrome_options.add_argument("--disable-gpu")
+
+    chrome_options.add_argument("--headless")
+    driver= webdriver.Chrome("C:\\Users\\Sumit\\OneDrive\\Desktop\\chromedriver.exe", options = chrome_options)
     driver.get(q)
     search = driver.find_elements_by_tag_name("input")
     for s in search:
