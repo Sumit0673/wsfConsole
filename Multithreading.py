@@ -14,6 +14,13 @@ def scrap(q):
     driver= webdriver.Chrome("C:\\Users\\Sumit\\OneDrive\\Desktop\\chromedriver.exe", options = chrome_options)
     driver.get(q)
     search = driver.find_elements_by_tag_name("input")
+    search.click()
+    driver.switch_to_alert.dismiss()
+    search.click()
+    driver.switch_to_alert.accept()
+
+
+    sea
     for s in search:
         s.send_keys(q)
 
