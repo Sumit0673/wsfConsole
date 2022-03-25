@@ -1,36 +1,49 @@
+import time
 from concurrent.futures import ProcessPoolExecutor
 
-
+m= time.perf_counter()
 def scrap(q):
     from selenium import webdriver
     from selenium.webdriver.chrome.options import Options
-    chrome_options = Options()
+    # from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+    # d = DesiredCapabilities.CHROME
+    # d['loggingPrefs'] = { 'browser':'ALL' }
 
-    #chrome_options.add_argument("--disable-extensions")
+    # driver = webdriver.Chrome(desired_capabilities=d)
+    # chrome_options = Options()
 
-    #chrome_options.add_argument("--disable-gpu")
+    # #chrome_options.add_argument("--disable-extensions")
 
-    chrome_options.add_argument("--headless")
-    driver= webdriver.Chrome("C:\\Users\\Sumit\\OneDrive\\Desktop\\chromedriver.exe", options = chrome_options)
-    driver.get(q)
-    search = driver.find_elements_by_tag_name("input")
-    search.click()
-    driver.switch_to_alert.dismiss()
-    search.click()
-    driver.switch_to_alert.accept()
+    # #chrome_options.add_argument("--disable-gpu")
 
+    # chrome_options.add_argument("--headless")
+    driver= webdriver.Chrome("C:\\Users\\Sumit\\OneDrive\\Desktop\\chromedriver.exe", )
+    
+    driver.get("https://www.google.com")
 
-    sea
+    for entry in driver.get_log('browser'):
+    
+        print(entry)
+    
+
+    
+    21
+    # search.click()
+    # driver.switch_to_alert.dismiss()
+    # search.click()
+    # driver.switch_to_alert.accept()
+    # driver.switchTo().alert().getText()
     for s in search:
         s.send_keys(q)
 
-List = ['<script\x20type="text/javascript">javascript:alert(1);</script>', 
-'<script\x3Etype="text/javascript">javascript:alert(1);</script>',
-'<script\x0Dtype="text/javascript">javascript:alert(1);</script>',
-'<script\x09type="text/javascript">javascript:alert(1);</script>',
-'<script\x0Ctype="text/javascript">javascript:alert(1);</script>',
-'<script\x2Ftype="text/javascript">javascript:alert(1);</script>',
-'<script\x0Atype="text/javascript">javascript:alert(1);</script>']
+
+List = ['<script\x20type="text/javascript">console.log("test success...")</script>', 
+'<script\x3Etype="text/javascript">console.log("test success...")</script>',
+'<script\x0Dtype="text/javascript">console.log("test success...")</script>',
+'<script\x09type="text/javascript">console.log("test success...")</script>',
+'<script\x0Ctype="text/javascript">console.log("test success...")</script>',
+'<script\x2Ftype="text/javascript">console.log("test success...")</script>',
+'<script\x0Atype="text/javascript">console.log("test success...")</script>']
 
 def main():
     
@@ -39,6 +52,8 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
+    
+    n=time.perf_counter()
+    time_required=n-m
+    print(f"Time required during the process: {time_required}")
 
