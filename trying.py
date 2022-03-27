@@ -56,6 +56,7 @@ def scan_xss(js_script):
     Given a `url`, it prints all XSS vulnerable forms and 
     returns True if any is vulnerable, False otherwise
     """
+    # https://xss-game.appspot.com/level1/frame
     # get all the forms from the URL
     forms = get_all_forms('https://xss-game.appspot.com/level1/frame')
     print(f"[+] Detected {len(forms)} forms on {'https://xss-game.appspot.com/level1/frame'}.")

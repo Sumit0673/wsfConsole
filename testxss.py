@@ -51,22 +51,23 @@ def submit_form(form_details, url, value):
         # GET request
         return requests.get(target_url, params=data)
 
-def scan_xss(js_script):
+def scan_xss(js_script, u):
     """
     Given a `url`, it prints all XSS vulnerable forms and 
     returns True if any is vulnerable, False otherwise
     """
     # get all the forms from the URL
-    forms = get_all_forms('https://xss-game.appspot.com/level1/frame')
-    print(f"[+] Detected {len(forms)} forms on {'https://xss-game.appspot.com/level1/frame'}.")
+    
+    forms = get_all_forms(u)
+    print(f"[+] Detected {len(forms)} forms on {u}.")
     # returning value
     is_vulnerable = False
     # iterate over all forms
     for form in forms:
         form_details = get_form_details(form)
-        content = submit_form(form_details, 'https://xss-game.appspot.com/level1/frame', js_script).content.decode()
+        content = submit_form(form_details, u, js_script).content.decode()
         if js_script in content:
-            print(f"[+] XSS Detected on {'https://xss-game.appspot.com/level1/frame'}")
+            print(f"[+] XSS Detected on {u}")
             print(f"[*] Form details:")
             pprint(form_details)
             is_vulnerable = True
@@ -74,7 +75,8 @@ def scan_xss(js_script):
     return is_vulnerable
 
 if __name__ == "__main__":
-    List = ['<script\x20type="text/javascript">console.log("test success...")</script>', 
+    p = input("enter the url: ")
+    payloads = ['<script\x20type="text/javascript">console.log("test success...")</script>', 
     '<script\x3Etype="text/javascript">console.log("test success...")</script>',
     '<script\x0Dtype="text/javascript">console.log("test success...")</script>',
     '<script\x09type="text/javascript">console.log("test success...")</script>',
@@ -83,6 +85,6 @@ if __name__ == "__main__":
     '<script\x0Atype="text/javascript">console.log("test success...")</script>']
 
     with ProcessPoolExecutor(max_workers = 3) as executor:
-        result = executor.map(scan_xss, List)
-
-    print([x for x in result])
+        for i in payloads:
+            result = scan_xss(i, p)
+            print(result)
