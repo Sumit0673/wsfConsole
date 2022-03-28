@@ -83,7 +83,7 @@ if __name__ == "__main__":
     '<script\x2Ftype="text/javascript">console.log("test success...")</script>',
     '<script\x0Atype="text/javascript">console.log("test success...")</script>']
 
-    test_str = '<'
+    test_str = ['<sumit']
     with ProcessPoolExecutor(max_workers = 3) as executor:
         Filter = executor.map(scan_xss, test_str)
     print([x for x in Filter])
