@@ -67,7 +67,7 @@ def scan_xss(js_script):
         form_details = get_form_details(form)
         content = submit_form(form_details, 'https://xss-game.appspot.com/level1/frame', js_script).content.decode()
         if js_script in content:
-            print(f"[+] XSS Detected on {'https://xss-game.appspot.com/level1/frame'}")
+            print(f"[+] XSS Detected on {''}")
             print(f"[*] Form details:")
             pprint(form_details)
             is_vulnerable = True

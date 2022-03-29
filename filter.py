@@ -8,7 +8,7 @@ test_list  = ['<script\x20type="text/javascript">console.log("test success...")<
 
   
 # initializing string 
-test_str = ''
+test_str = '<'
   
 # printing original list
 print("The original list is : " + str(test_list))
