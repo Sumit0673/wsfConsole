@@ -67,7 +67,9 @@ def scan_xss(js_script, u):
     # iterate over all forms
     for form in forms:
         form_details = get_form_details(form)
-        content = submit_form(form_details, u, js_script).content.decode()
+        content = submit_form(form_details, u, js_script).content
+        print(content)
+        print(content.decode())
         if js_script in content:
             print(f"[+] XSS Detected on {u}")
             print(f"[*] Form details:")
@@ -120,26 +122,41 @@ if __name__ == "__main__":
 
 
 # initializing string 
-test_str = input("Enter the filtered charachter : ")
+# test_str = input("Enter the filtered charachter : ")
   
-# printing original list
-print("The original list is : " + str(payloads))
+# # printing original list
+# print("The original list is : " + str(payloads))
   
-# Remove List elements containing String character
-# Using loop
-res = []
-for sub in payloads:
-    flag = 0
-    for ele in sub:
-        if ele in test_str:
-            flag = 1
-    if not flag:
-        res.append(sub)
+# # Remove List elements containing String character
+# # Using loop
+# res = []
+# for sub in payloads:
+#     flag = 0
+#     for ele in sub:
+#         if ele in test_str:
+#             flag = 1
+#     if not flag:
+#         res.append(sub)
   
-# printing result 
-print("The list after removal : " + str(res))
+# # printing result 
+# print("The list after removal : " + str(res))
 
 
 for i in payloads:
             result = scan_xss(i, p)
             print(result)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# https://xss-game.appspot.com/level1/frame

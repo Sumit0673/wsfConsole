@@ -4,7 +4,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 
 driver = webdriver.Chrome("C:\\Users\\Sumit\\OneDrive\\Desktop\\ProposalsCyberlabs\\chromedriver.exe")
-driver.get(input("Enter the url : "))
+driver.get(input("Enter the url : ")) 
 ele = driver.find_element_by_tag_name("input")
 payload = input("Enter character : ")
 ele.send_keys(payload)
