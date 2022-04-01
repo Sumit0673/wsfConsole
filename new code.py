@@ -76,6 +76,7 @@ def scan_xss(u, js_script):
             print(f"[*] Form details:")
             pprint(form_details)
             is_vulnerable = True
+            
             if is_vulnerable:
                 break
             # won't break because we want to print available vulnerable forms
@@ -92,35 +93,17 @@ if __name__ == "__main__":
 
     # print(a)
     
-
+    payloads=['<script\x20type="text/javascript">javascript:alert(1);</script>', 
+              '<script\x3Etype="text/javascript">javascript:alert(1);</script>']
     
-    payloads = open('C:\\Users\Sumit\Downloads\payloads.txt', 'r', encoding='utf8')
-    lines = sorted(payloads.read().split("\n"), key=len)
+    # payloads = open('C:\\Users\Sumit\Downloads\payloads.txt', 'r', encoding='utf8')
+    # lines = sorted(payloads.read().split("\n"), key=len)
 
 
 
-# initializing string 
-# test_str = input("Enter the filtered charachter : ")
-  
-# # printing original list
-# print("The original list is : " + str(payloads))
-  
-# # Remove List elements containing String character
-# # Using loop
-# res = []
-# for sub in payloads:
-#     flag = 0
-#     for ele in sub:
-#         if ele in test_str:
-#             flag = 1
-#     if not flag:
-#         res.append(sub)
-  
-# # printing result 
-# print("The list after removal : " + str(res))
 for url in a:
     with ThreadPoolExecutor() as executer:
-        result = executer.map(scan_xss, repeat(url), lines)
+        result = executer.map(scan_xss, repeat(url), payloads)
         print([x for x in result])
 
 

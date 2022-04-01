@@ -69,15 +69,5 @@ class webCrawler:
             all.append(link)
             if self.total_urls_visited > max_urls:
                 break
-            self.crawl(link, max_urls, all)
+            # self.crawl(link, max_urls, all)
 
-# url=input("ENTER THE url: ")
-# g=webCrawler(url, 0)
-# if __name__ == "__main__":
-#     a = []
-#     g.crawl(url, 30, a)
-#     print("[+] Total Internal links:", len(g.internal_urls))
-#     print("[+] Total External links:", len(g.external_urls))
-#     print("[+] Total URLs:", len(g.external_urls) + len(g.internal_urls))
-
-#     print(a)
