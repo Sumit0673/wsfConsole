@@ -96,15 +96,17 @@ if __name__ == "__main__":
     payloads=['<script\x20type="text/javascript">javascript:alert(1);</script>', 
               '<script\x3Etype="text/javascript">javascript:alert(1);</script>']
     
+
+    def remove_payloads():
+            
     # payloads = open('C:\\Users\Sumit\Downloads\payloads.txt', 'r', encoding='utf8')
     # lines = sorted(payloads.read().split("\n"), key=len)
 
 
-
-for url in a:
-    with ThreadPoolExecutor() as executer:
-        result = executer.map(scan_xss, repeat(url), payloads)
-        print([x for x in result])
+        for url in a:
+            with ThreadPoolExecutor() as executer:
+                result = executer.map(scan_xss, repeat(url), payloads)
+                print([x for x in result])
 
 
 
