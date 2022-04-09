@@ -52,14 +52,12 @@ def domain_scanner(domain_name,sub_domnames):
     print('\n')
     print('----Scanning Finished----')
     print('-----Scanner Stopped-----')
-def exists(sub_domain):
-    for i in sub_domain:
-        try:
-            r=requests.get(i)
-            print(i + "\tStatus=" + str(r.status_code))
-        except Exception as e:
-            print(url +"\tNA CONNECTION Failed\t" + str(e))
-        return None
+def exists(i):
+    try:
+        r=requests.get(i)
+        print(i + "\tStatus=" + str(r.status_code))
+    except Exception as e:
+        print(i +"\tNA CONNECTION Failed\t" + str(e))
             
   
 # main function
@@ -84,5 +82,4 @@ if __name__ == '__main__':
         domain_scanner(dom_name,sub_dom)
         print(sub_domain)
         with ThreadPoolExecutor() as executer:
-            result=executer.map(exists,sub_domain)
-        print([x for x in result])
+            executer.map(exists,sub_domain)
