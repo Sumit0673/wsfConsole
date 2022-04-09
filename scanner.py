@@ -1,5 +1,4 @@
 
-# opening the subdomain text file in the read mode
 with open('C:/Users/Sumit/OneDrive/Documents/DOC/Sumit/subdomain_names.txt','r') as file:
     
     # reading the file
@@ -19,8 +18,12 @@ with open('C:/Users/Sumit/OneDrive/Documents/DOC/Sumit/subdomain_names.txt','r')
     print(sub_dom)
 # importing library
 import requests
+import threading
+from concurrent.futures import ThreadPoolExecutor
+
   
 # function for scanning subdomains
+sub_domain=[]
 def domain_scanner(domain_name,sub_domnames):
     print('-----------Scanner Started-----------')
     print('----URL after scanning subdomains----')
@@ -41,6 +44,7 @@ def domain_scanner(domain_name,sub_domnames):
             # if after putting subdomain one by one url 
             # is valid then printing the url
             print(f'[+] {url}')
+            sub_domain.append(url)
               
         # if url is invalid then pass it
         except requests.ConnectionError:
@@ -48,24 +52,37 @@ def domain_scanner(domain_name,sub_domnames):
     print('\n')
     print('----Scanning Finished----')
     print('-----Scanner Stopped-----')
+def exists(sub_domain):
+    for i in sub_domain:
+        try:
+            r=requests.get(i)
+            print(i + "\tStatus=" + str(r.status_code))
+        except Exception as e:
+            print(url +"\tNA CONNECTION Failed\t" + str(e))
+        return None
+            
   
 # main function
 if __name__ == '__main__':
     
     # inputting the domain name
-    dom_name = input("Enter the Domain Name:")
-    print('\n')
-  
-    # opening the subdomain text file
-    with open('C:/Users/Sumit/OneDrive/Documents/DOC/Sumit/subdomain_names.txt','r') as file:
-        
-        # reading the file
-        name = file.read()
-          
-        # using spilitlines() function storing the 
-        # list of splitted strings
-        sub_dom = name.splitlines()
-          
-    # calling the function for scanning the subdomains
-    # and getting the url
-    domain_scanner(dom_name,sub_dom)
+        dom_name = input("Enter the Domain Name:")
+        print('\n')
+    
+        # opening the subdomain text file
+        with open('C:/Users/Sumit/OneDrive/Documents/DOC/Sumit/subdomain_names.txt','r') as file:
+            
+            # reading the file
+            name = file.read()
+            
+            # using spilitlines() function storing the 
+            # list of splitted strings
+            sub_dom = name.splitlines()
+            
+        # calling the function for scanning the subdomains
+        # and getting the url
+        domain_scanner(dom_name,sub_dom)
+        print(sub_domain)
+        with ThreadPoolExecutor() as executer:
+            result=executer.map(exists,sub_domain)
+        print([x for x in result])
