@@ -5,26 +5,26 @@ import dns.resolver
 import sys
 
 
-def cname_founder(subd_list):
-    record_types =['CNAME']
-    subdomain=subd_list
-    for records in record_types:
-        try:
-            answer=dns.resolver.resolve(subdomain, records)
-            print(f'{records} Records')
-            print('-'*30)
-            for server in answer:
-                print(server.to_text() + '\n')
-        except dns.resolver.NoAnswer:
-            print('no record found.')
-            pass
-        except dns.resolver.NXDOMAIN:
-            print(f"""{subdomain} 
-                CNAME does not exist\n""")
+# def cname_founder(subd_list):
+#     record_types =['CNAME']
+#     subdomain=subd_list
+#     for records in record_types:
+#         try:
+#             answer=dns.resolver.resolve(subdomain, records)
+#             print(f'{records} Records')
+#             print('-'*30)
+#             for server in answer:
+#                 print(server.to_text() + '\n')
+#         except dns.resolver.NoAnswer:
+#             print('no record found.')
+#             pass
+#         except dns.resolver.NXDOMAIN:
+#             print(f"""{subdomain} 
+#                 CNAME does not exist\n""")
             
 
-        except Exception as e:
-            print(f'{subd_list}  {e}')
+#         except Exception as e:
+#             print(f'{subd_list}  {e}')
             
 
 
@@ -43,8 +43,8 @@ with open('C:/Users/Sumit/OneDrive/Documents/DOC/Sumit/subdomain_names.txt','r')
       
     # printing list of subdomain names present in the 
     # text file
-    print("List of subdomain names present in the file\n")
-    print(sub_dom)
+                        # print("List of subdomain names present in the file\n")
+                        # print(sub_dom)
 # importing library
 
   
@@ -124,5 +124,5 @@ if __name__ == '__main__':
     with ThreadPoolExecutor() as executer:
         executer.map(exists,sub_domain)
 
-    for i in range(len(status_list)):
-        cname_founder(status_list[i])
+    # for i in range(len(status_list)):
+    #     cname_founder(status_list[i])
