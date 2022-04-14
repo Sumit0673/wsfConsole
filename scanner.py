@@ -79,18 +79,25 @@ def domain_scanner(domain_name,sub_domnames):
     print('----Scanning Finished----')
     print('-----Scanner Stopped-----')
 status_list = []
+response_code=['Sorry, this page is no longer available.',"If this is your website and you've just created it, try refreshing in a minute",'The specified bucket does not exist','Repository not found','Trying to access your account?','404 Not Found', 'Domain uses DO name serves with no records in DO','404: This page could not be found.','The thing you were looking for is no longer here, or never was',"There isn't a GitHub Pages site here.","404 Blog is not found","We could not find what you're looking for.","No settings were found for this company:","Uh oh. That page doesn't exist.",'is not a registered InCloud YouTrack','No Site For Domain',"It looks like you may have taken a wrong turn somewhere. Don't worry...it happens to all of us.","Tunnel *.ngrok.io not found",'404 error unknown site!',"Sorry, couldn't find the status page",'Project doesnt exist... yet!','Link does not exist','This job board website is either expired or its domain name is invalid.','page not found',"Whatever you were looking for doesn't currently exist at this address","Non-hub domain, The URL you've accessed does not provide a hub.",'page not found','This UserVoice subdomain is currently available!',"Do you want to register *.wordpress.com?","Hello! Sorry, but the website you&rsquo;re looking for doesn&rsquo;t exist." ]
 
 def exists(i):
     try:
         r=requests.get(i)
         print(i + "\tStatus=" + str(r.status_code))
-        if str(r.status_code) == '404':
+        if str(r.status_code) == '404' or str(r.status_code) == '200':
             status_list.append(i)
-        else:
-            print(f'{i} has nothing to take over..')
+            if r.text in response_code:
+                print("it is vulnerable")
+            else:
+                print("Not vulnerable")
+            
+        # else:
+        #     print(f'{i} has nothing to take over..')
             
     except Exception as e:
         print(i +"\tNA CONNECTION Failed\t" + str(e))
+        
           
   
 # main function
@@ -113,7 +120,7 @@ if __name__ == '__main__':
     # calling the function for scanning the subdomains
     # and getting the url
     domain_scanner(dom_name,sub_dom)
-    print(sub_domain)
+    # print(sub_domain)
     with ThreadPoolExecutor() as executer:
         executer.map(exists,sub_domain)
 
