@@ -88,12 +88,17 @@ def exists(i):
         if str(r.status_code) == '404' or str(r.status_code) == '200':
             status_list.append(i)
             if r.text in response_code:
+                
                 print("it is vulnerable")
+                print("-"*100)
             else:
+               
                 print("Not vulnerable")
+                print("-"*100)
             
-        # else:
-        #     print(f'{i} has nothing to take over..')
+        else:
+            print(f'{i} has nothing to take over..')
+            print("-"*100)
             
     except Exception as e:
         print(i +"\tNA CONNECTION Failed\t" + str(e))
