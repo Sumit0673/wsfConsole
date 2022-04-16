@@ -6,6 +6,7 @@ import threading
 from itertools import repeat
 from concurrent.futures import ThreadPoolExecutor
 from SSS import webCrawler
+import FilterRequest1
 
 def get_all_forms(url):
     soup = bs(requests.get(url).content, "html.parser")
@@ -91,16 +92,21 @@ if __name__ == "__main__":
     print("[+] Total External links:", len(g.external_urls))
     print("[+] Total URLs:", len(g.external_urls) + len(g.internal_urls))
 
+    # spec_char = []
+
+    # for url in a:
+    #     spec_char.append(FilterRequest1.main(url))
+
     # print(a)
     
     # payloads=['<script\x20type="text/javascript">javascript:alert(1);</script>', 
     #           '<script\x3Etype="text/javascript">javascript:alert(1);</script>']
             
-    payloads = open('C:\\Users\Sumit\Downloads\payloads.txt', 'r', encoding='utf8')
+    payloads = open('C:\\Users\Sumit\OneDrive\Desktop\ProposalsCyberlabs\payloads.txt', 'r', encoding='utf8')
     lines = sorted(payloads.read().split("\n"), key=len)
 
     test_list = lines
-    test_str=["'",'<','>']
+    test_str=['<','>','.','"',"'",'$','*']
     res = []
     for sub in test_list:
         flag = 0
